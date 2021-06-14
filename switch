@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+$realPath = __DIR__ . '/real';
+$realPathHidden = __DIR__ . '/.real';
+$fakePath = __DIR__ . '/fake';
+
+if (is_link($realPath)) {
+    unlink($realPath);
+    rename($realPathHidden, $realPath);
+    exit(0);
+}
+
+rename($realPath, $realPathHidden);
+symlink($fakePath, $realPath);
+
